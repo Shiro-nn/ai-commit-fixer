@@ -13,7 +13,7 @@ await esbuild.build({
       loader: "native",
     }),
   ],
-  external: ["encoding"],
+  external: ["encoding", "stream"],
   outfile: "dist/out.js",
 });
 
