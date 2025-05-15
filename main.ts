@@ -53,7 +53,7 @@ for (const { sha, diff, author } of diffs) {
     await exec("git", ["checkout", sha], { env });
     await exec("git", ["commit", "--amend", "-m", reply], { env });
     await exec("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], { env });
-    await exec("git", ["push", "--force-with-lease"], { env });
+    await exec("git", ["push", "--force"], { env });
   } catch (err) {
     console.error(err);
   }
