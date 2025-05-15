@@ -124,7 +124,7 @@ async function getAIResponse(prompt: string) {
           { role: "system", content: getSystemPrompt() },
           { role: "user", content: prompt },
         ],
-      })
+      }),
     });
     const response = await resp.json();
     return stripThinkBlocks(
