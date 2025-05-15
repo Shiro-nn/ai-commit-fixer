@@ -23911,7 +23911,7 @@ var import_github = __toESM(require_github());
       await (0, import_exec.exec)("git", ["checkout", sha], { env });
       await (0, import_exec.exec)("git", ["commit", "--amend", "-m", reply], { env });
       await (0, import_exec.exec)("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], { env });
-      await (0, import_exec.exec)("git", ["push", "--force-with-lease"], { env });
+      await (0, import_exec.exec)("git", ["push", "--force"], { env });
     } catch (err) {
       console.error(err);
     }
