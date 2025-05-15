@@ -1,27 +1,26 @@
-import core from "npm:@actions/core";
+import {getInput} from "npm:@actions/core";
 import { exec } from "npm:@actions/exec";
-import github from "npm:@actions/github";
+import { getOctokit, context } from "npm:@actions/github";
 import { PushEvent } from "npm:@octokit/webhooks-types";
-import process from "node:process";
+import * as process from "node:process";
 
 // Получаем входные переменные
-const GITHUB_TOKEN = core.getInput("GITHUB_TOKEN")!;
-const OPENAI_API_KEY = core.getInput("OPENAI_API_KEY")!;
-const OPENAI_BASE_URL = core.getInput("OPENAI_API_ENDPOINT")!;
-const OPENAI_API_MODEL = core.getInput("OPENAI_API_MODEL")!;
+const GITHUB_TOKEN = getInput("GITHUB_TOKEN")!;
+const OPENAI_API_KEY = getInput("OPENAI_API_KEY")!;
+const OPENAI_BASE_URL = getInput("OPENAI_API_ENDPOINT")!;
+const OPENAI_API_MODEL = getInput("OPENAI_API_MODEL")!;
 
 // Инициализация клиентов
-const octokit = github.getOctokit(GITHUB_TOKEN);
+const octokit = getOctokit(GITHUB_TOKEN);
 
-const context = github.context;
 const owner = context.repo.owner;
 const repo = context.repo.repo;
 
-if (github.context.eventName != "push") {
+if (context.eventName != "push") {
   throw new Error("This action only works with push events");
 }
 
-const payload = github.context.payload as PushEvent;
+const payload = context.payload as PushEvent;
 const commits = payload.commits;
 
 if (!commits.length) {
