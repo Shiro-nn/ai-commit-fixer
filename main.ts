@@ -1,8 +1,8 @@
 import OpenAI from "npm:openai@4.97.0";
 import core from "npm:@actions/core";
-import {exec} from "npm:@actions/exec";
+import { exec } from "npm:@actions/exec";
 import github from "npm:@actions/github";
-import {PushEvent} from "npm:@octokit/webhooks-types";
+import { PushEvent } from "npm:@octokit/webhooks-types";
 import process from "node:process";
 
 // Получаем входные переменные
