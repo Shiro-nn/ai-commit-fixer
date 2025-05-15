@@ -9,10 +9,13 @@ const replaceNodeFetchPlugin = {
   name: "replace-node-fetch",
   setup(build: esbuild.PluginBuild) {
     // 1) Catch all import requests for "node-fetch"
-    build.onResolve({ filter: /^node-fetch$/ }, (args: esbuild.OnResolveArgs) => ({
-      path: args.path,
-      namespace: "replace-node-fetch",
-    }));
+    build.onResolve(
+      { filter: /^node-fetch$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-fetch",
+      }),
+    );
 
     // 2) Provide a virtual module that re-exports Undici fetch
     build.onLoad({ filter: /.*/, namespace: "replace-node-fetch" }, () => ({
