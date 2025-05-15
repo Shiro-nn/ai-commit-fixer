@@ -13,12 +13,6 @@ await esbuild.build({
       loader: "native",
     }),
   ],
-  define: {
-    "DENO_ENV": "process.env",
-    // replace Deno.read to fs
-    "Deno.readTextFileSync": "fsmodule.readFileSync",
-  },
-  banner: { js: 'import * as fsmodule from "fs";' },
   external: ["encoding"],
   outfile: "dist/out.js",
 });
