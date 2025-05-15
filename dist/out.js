@@ -23907,21 +23907,27 @@ var process2 = __toESM(require("node:process"));
       if (!reply) continue;
       (0, import_exec.exec)("git", [
         "rebase",
+        "-i",
         `${sha}^`,
+        "--autosquash",
+        "--rebase-merges",
+        "--autostash",
+        "--empty=drop",
         "--exec",
-        "'git",
-        "commit",
-        "--amend",
-        "-m",
-        `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`
+        "'true'",
+        "--quiet"
       ], {
         env: {
-          GIT_SEQUENCE_EDITOR: 'sed -i -e "s/^pick/reword/g"',
           GIT_COMMITTER_NAME: process2.env.GITHUB_ACTOR,
           GIT_COMMITTER_EMAIL: `${process2.env.GITHUB_ACTOR}@users.noreply.github.com`
         }
       });
-      (0, import_exec.exec)("git", ["rebase", "--continue"]);
+      (0, import_exec.exec)("git", [
+        "commit",
+        "--amend",
+        "-m",
+        `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`
+      ]);
       (0, import_exec.exec)("git", ["push", "--force-with-lease"]);
     } catch (err) {
       console.error(err);

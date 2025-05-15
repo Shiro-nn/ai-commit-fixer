@@ -45,14 +45,30 @@ for (const { sha, diff } of diffs) {
   try {
     const reply = await getAIResponse(diff);
     if (!reply) continue;
-    exec("git", [ "rebase", "-i", `${sha}^`, "--autosquash", "--rebase-merges", "--autostash", "--empty=drop", "--exec", "'true'", "--quiet"], {
+    exec("git", [
+      "rebase",
+      "-i",
+      `${sha}^`,
+      "--autosquash",
+      "--rebase-merges",
+      "--autostash",
+      "--empty=drop",
+      "--exec",
+      "'true'",
+      "--quiet",
+    ], {
       env: {
         GIT_COMMITTER_NAME: process.env.GITHUB_ACTOR!,
         GIT_COMMITTER_EMAIL:
           `${process.env.GITHUB_ACTOR}@users.noreply.github.com`,
       },
     });
-    exec("git", ["commit", "--amend", "-m", `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`]);
+    exec("git", [
+      "commit",
+      "--amend",
+      "-m",
+      `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`,
+    ]);
     exec("git", ["push", "--force-with-lease"]);
   } catch (err) {
     console.error(err);
