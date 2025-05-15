@@ -36,7 +36,9 @@ await exec("git", ["status"]);
 await exec("git", ["log", "--oneline"]);
 
 const diffs = await Promise.all(
-  commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map((cm) => cm.id).map((hash) => getCommitDiff(hash)),
+  commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map((cm) =>
+    cm.id
+  ).map((hash) => getCommitDiff(hash)),
 );
 
 for (const { sha, diff } of diffs) {
