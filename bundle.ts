@@ -30,94 +30,37 @@ const replaceNodeFetchPlugin = {
 };
 
 /**
- * Replace any dynamic require of "node:assert" (or "assert")
- * with a static ESM import from "node:assert".
+ * Replace any dynamic require of "node:*" (or "*")
+ * with a static ESM import from "node:*".
  */
-const replaceNodeAssertPlugin = {
-  name: "replace-node-assert",
-  setup(build: esbuild.PluginBuild) {
-    // Intercept both "node:assert" and "assert"
-    build.onResolve(
-      { filter: /^(?:node:)?assert$/ },
-      (args: esbuild.OnResolveArgs) => ({
-        path: args.path,
-        namespace: "replace-node-assert",
-      }),
-    );
-    // Load a virtual module that does a static import
-    build.onLoad(
-      { filter: /.*/, namespace: "replace-node-assert" },
-      (loadArgs: esbuild.OnLoadArgs) => ({
-        contents: `
-        import assert from "${loadArgs.path}";
-        export default assert;
+function getReplaceNodePlugin(moduleName: string) {
+  const filter = new RegExp(`^(?:node:)?${moduleName}$`);
+  return {
+    name: `replace-node-${moduleName}`,
+    setup(build: esbuild.PluginBuild) {
+      // Intercept both "node:*" and "*"
+      build.onResolve(
+          { filter },
+          (args: esbuild.OnResolveArgs) => ({
+            path: args.path,
+            namespace: `replace-node-${moduleName}`,
+          }),
+      );
+      // Load a virtual module that does a static import
+      build.onLoad(
+          { filter: /.*/, namespace: `replace-node-${moduleName}` },
+          (loadArgs: esbuild.OnLoadArgs) => ({
+            contents: `
+        import ${moduleName} from "${loadArgs.path}";
+        export default ${moduleName};
         export * from "${loadArgs.path}";
       `,
-        loader: "js",
-      }),
-    );
-  },
-};
-
-/**
- * Replace any dynamic require of "node:net" (or "net")
- * with a static ESM import from "node:net".
- */
-const replaceNodeNetPlugin = {
-  name: "replace-node-net",
-  setup(build: esbuild.PluginBuild) {
-    // Intercept both "node:net" and "net"
-    build.onResolve(
-      { filter: /^(?:node:)?net$/ },
-      (args: esbuild.OnResolveArgs) => ({
-        path: args.path,
-        namespace: "replace-node-net",
-      }),
-    );
-    // Load a virtual module that does a static import
-    build.onLoad(
-      { filter: /.*/, namespace: "replace-node-net" },
-      (loadArgs: esbuild.OnLoadArgs) => ({
-        contents: `
-        import net from "${loadArgs.path}";
-        export default net;
-        export * from "${loadArgs.path}";
-      `,
-        loader: "js",
-      }),
-    );
-  },
-};
-
-/**
- * Replace any dynamic require of "node:http" (or "http")
- * with a static ESM import from "node:http".
- */
-const replaceNodeHttpPlugin = {
-  name: "replace-node-http",
-  setup(build: esbuild.PluginBuild) {
-    // Intercept both "node:http" and "http"
-    build.onResolve(
-        { filter: /^(?:node:)?http$/ },
-        (args: esbuild.OnResolveArgs) => ({
-          path: args.path,
-          namespace: "replace-node-http",
-        }),
-    );
-    // Load a virtual module that does a static import
-    build.onLoad(
-        { filter: /.*/, namespace: "replace-node-http" },
-        (loadArgs: esbuild.OnLoadArgs) => ({
-          contents: `
-        import http from "${loadArgs.path}";
-        export default http;
-        export * from "${loadArgs.path}";
-      `,
-          loader: "js",
-        }),
-    );
-  },
-};
+            loader: "js",
+          }),
+      );
+    },
+  }
+}
 
 await esbuild.initialize();
 
@@ -128,9 +71,10 @@ await esbuild.build({
   platform: "node",
   plugins: [
     replaceNodeFetchPlugin,
-    replaceNodeAssertPlugin,
-    replaceNodeNetPlugin,
-    replaceNodeHttpPlugin,
+    getReplaceNodePlugin("assert"),
+    getReplaceNodePlugin("net"),
+    getReplaceNodePlugin("http"),
+    getReplaceNodePlugin("stream"),
     ...denoPlugins({
       loader: "native",
     }),
