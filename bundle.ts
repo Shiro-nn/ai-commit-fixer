@@ -10,11 +10,11 @@ const replaceNodeFetchPlugin = {
   setup(build: esbuild.PluginBuild) {
     // 1) Catch all import requests for "node-fetch"
     build.onResolve(
-        { filter: /^node-fetch$/ },
-        (args: esbuild.OnResolveArgs) => ({
-          path: args.path,
-          namespace: "replace-node-fetch",
-        }),
+      { filter: /^node-fetch$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-fetch",
+      }),
     );
 
     // 2) Provide a virtual module that re-exports Undici fetch
@@ -37,19 +37,25 @@ const replaceNodeAssertPlugin = {
   name: "replace-node-assert",
   setup(build: esbuild.PluginBuild) {
     // Intercept both "node:assert" and "assert"
-    build.onResolve({ filter: /^(?:node:)?assert$/ }, (args: esbuild.OnResolveArgs) => ({
-      path: args.path,
-      namespace: "replace-node-assert",
-    }));
+    build.onResolve(
+      { filter: /^(?:node:)?assert$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-assert",
+      }),
+    );
     // Load a virtual module that does a static import
-    build.onLoad({ filter: /.*/, namespace: "replace-node-assert" }, (loadArgs: esbuild.OnLoadArgs) => ({
-      contents: `
+    build.onLoad(
+      { filter: /.*/, namespace: "replace-node-assert" },
+      (loadArgs: esbuild.OnLoadArgs) => ({
+        contents: `
         import assert from "${loadArgs.path}";
         export default assert;
         export * from "${loadArgs.path}";
       `,
-      loader: "js",
-    }));
+        loader: "js",
+      }),
+    );
   },
 };
 
@@ -61,19 +67,25 @@ const replaceNodeNetPlugin = {
   name: "replace-node-net",
   setup(build: esbuild.PluginBuild) {
     // Intercept both "node:net" and "net"
-    build.onResolve({ filter: /^(?:node:)?net$/ }, (args: esbuild.OnResolveArgs) => ({
-      path: args.path,
-      namespace: "replace-node-net",
-    }));
+    build.onResolve(
+      { filter: /^(?:node:)?net$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-net",
+      }),
+    );
     // Load a virtual module that does a static import
-    build.onLoad({ filter: /.*/, namespace: "replace-node-net" }, (loadArgs: esbuild.OnLoadArgs) => ({
-      contents: `
+    build.onLoad(
+      { filter: /.*/, namespace: "replace-node-net" },
+      (loadArgs: esbuild.OnLoadArgs) => ({
+        contents: `
         import net from "${loadArgs.path}";
         export default net;
         export * from "${loadArgs.path}";
       `,
-      loader: "js",
-    }));
+        loader: "js",
+      }),
+    );
   },
 };
 
