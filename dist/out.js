@@ -23908,7 +23908,7 @@ var import_github = __toESM(require_github());
       };
       const reply = await getAIResponse(diff);
       if (!reply) continue;
-      (0, import_exec.exec)("git", [
+      await (0, import_exec.exec)("git", [
         "rebase",
         "-i",
         `${sha}^`,
@@ -23920,13 +23920,13 @@ var import_github = __toESM(require_github());
         "'true'",
         "--quiet"
       ], { env });
-      (0, import_exec.exec)("git", [
+      await (0, import_exec.exec)("git", [
         "commit",
         "--amend",
         "-m",
         `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`
       ], { env });
-      (0, import_exec.exec)("git", ["push", "--force-with-lease"], { env });
+      await (0, import_exec.exec)("git", ["push", "--force-with-lease"], { env });
     } catch (err) {
       console.error(err);
     }
