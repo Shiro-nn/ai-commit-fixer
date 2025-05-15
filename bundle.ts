@@ -98,23 +98,23 @@ const replaceNodeHttpPlugin = {
   setup(build: esbuild.PluginBuild) {
     // Intercept both "node:http" and "http"
     build.onResolve(
-        { filter: /^(?:node:)?http$/ },
-        (args: esbuild.OnResolveArgs) => ({
-          path: args.path,
-          namespace: "replace-node-http",
-        }),
+      { filter: /^(?:node:)?http$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-http",
+      }),
     );
     // Load a virtual module that does a static import
     build.onLoad(
-        { filter: /.*/, namespace: "replace-node-http" },
-        (loadArgs: esbuild.OnLoadArgs) => ({
-          contents: `
+      { filter: /.*/, namespace: "replace-node-http" },
+      (loadArgs: esbuild.OnLoadArgs) => ({
+        contents: `
         import http from "${loadArgs.path}";
         export default http;
         export * from "${loadArgs.path}";
       `,
-          loader: "js",
-        }),
+        loader: "js",
+      }),
     );
   },
 };

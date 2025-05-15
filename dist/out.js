@@ -67,6 +67,20 @@ var init_node_net = __esm({
   }
 });
 
+// replace-node-http:node:http
+var node_http_exports = {};
+__export(node_http_exports, {
+  default: () => node_http_default
+});
+var node_http_default;
+var init_node_http = __esm({
+  "replace-node-http:node:http"() {
+    init_node_http();
+    init_node_http();
+    node_http_default = node_http_default;
+  }
+});
+
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/symbols.js
 var require_symbols = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/symbols.js"(exports, module) {
@@ -873,7 +887,7 @@ var require_util = __commonJS({
     "use strict";
     var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
     var { kDestroyed, kBodyUsed, kListeners, kBody } = require_symbols();
-    var { IncomingMessage } = __require("node:http");
+    var { IncomingMessage } = (init_node_http(), __toCommonJS(node_http_exports));
     var stream = __require("node:stream");
     var net = (init_node_net(), __toCommonJS(node_net_exports));
     var { Blob: Blob4 } = __require("node:buffer");
@@ -7572,7 +7586,7 @@ var require_client = __commonJS({
     "use strict";
     var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
     var net = (init_node_net(), __toCommonJS(node_net_exports));
-    var http = __require("node:http");
+    var http = (init_node_http(), __toCommonJS(node_http_exports));
     var util = require_util();
     var { ClientStats } = require_stats();
     var { channels } = require_diagnostics();
@@ -10549,7 +10563,7 @@ var require_mock_utils = __commonJS({
       kGetNetConnect
     } = require_mock_symbols();
     var { serializePathWithQuery } = require_util();
-    var { STATUS_CODES } = __require("node:http");
+    var { STATUS_CODES } = (init_node_http(), __toCommonJS(node_http_exports));
     var {
       types: {
         isPromise
@@ -15673,7 +15687,7 @@ var require_fetch = __commonJS({
     var { dataURLProcessor, serializeAMimeType, minimizeSupportedMimeType } = require_data_url();
     var { getGlobalDispatcher } = require_global2();
     var { webidl } = require_webidl();
-    var { STATUS_CODES } = __require("node:http");
+    var { STATUS_CODES } = (init_node_http(), __toCommonJS(node_http_exports));
     var GET_OR_HEAD = ["GET", "HEAD"];
     var defaultUserAgent = typeof __UNDICI_IS_NODE__ !== "undefined" || typeof esbuildDetection !== "undefined" ? "node" : "undici";
     var resolveObjectURL;
@@ -22615,6 +22629,20 @@ var init_isFile = __esm({
   }
 });
 
+// replace-node-http:http
+var http_exports = {};
+__export(http_exports, {
+  default: () => http_default
+});
+var http_default;
+var init_http = __esm({
+  "replace-node-http:http"() {
+    init_http();
+    init_http();
+    http_default = http_default;
+  }
+});
+
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/ms@2.1.3/node_modules/ms/index.js
 var require_ms = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/ms@2.1.3/node_modules/ms/index.js"(exports, module) {
@@ -22772,7 +22800,7 @@ var require_constants6 = __commonJS({
 var require_agent2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/agentkeepalive@4.6.0/node_modules/agentkeepalive/lib/agent.js"(exports, module) {
     "use strict";
-    var OriginalAgent = __require("http").Agent;
+    var OriginalAgent = (init_http(), __toCommonJS(http_exports)).Agent;
     var ms = require_humanize_ms();
     var debug2 = __require("util").debuglog("agentkeepalive");
     var {
@@ -24244,7 +24272,7 @@ var require_tunnel = __commonJS({
     "use strict";
     var net = (init_net(), __toCommonJS(net_exports));
     var tls = __require("tls");
-    var http = __require("http");
+    var http = (init_http(), __toCommonJS(http_exports));
     var https = __require("https");
     var events = __require("events");
     var assert = (init_assert(), __toCommonJS(assert_exports));
@@ -24880,7 +24908,7 @@ var require_util7 = __commonJS({
     "use strict";
     var assert = (init_assert(), __toCommonJS(assert_exports));
     var { kDestroyed, kBodyUsed } = require_symbols2();
-    var { IncomingMessage } = __require("http");
+    var { IncomingMessage } = (init_http(), __toCommonJS(http_exports));
     var stream = __require("stream");
     var net = (init_net(), __toCommonJS(net_exports));
     var { InvalidArgumentError } = require_errors2();
@@ -30812,7 +30840,7 @@ var require_client2 = __commonJS({
     "use strict";
     var assert = (init_assert(), __toCommonJS(assert_exports));
     var net = (init_net(), __toCommonJS(net_exports));
-    var http = __require("http");
+    var http = (init_http(), __toCommonJS(http_exports));
     var { pipeline } = __require("stream");
     var util = require_util7();
     var timers = require_timers2();
@@ -34262,7 +34290,7 @@ var require_mock_utils2 = __commonJS({
       kGetNetConnect
     } = require_mock_symbols2();
     var { buildURL, nop } = require_util7();
-    var { STATUS_CODES } = __require("http");
+    var { STATUS_CODES } = (init_http(), __toCommonJS(http_exports));
     var {
       types: {
         isPromise
@@ -36959,7 +36987,7 @@ var require_fetch2 = __commonJS({
     var { TransformStream: TransformStream3 } = __require("stream/web");
     var { getGlobalDispatcher } = require_global4();
     var { webidl } = require_webidl2();
-    var { STATUS_CODES } = __require("http");
+    var { STATUS_CODES } = (init_http(), __toCommonJS(http_exports));
     var GET_OR_HEAD = ["GET", "HEAD"];
     var resolveObjectURL;
     var ReadableStream5 = globalThis.ReadableStream;
@@ -41292,7 +41320,7 @@ var require_lib = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.HttpClient = exports.isHttps = exports.HttpClientResponse = exports.HttpClientError = exports.getProxyUrl = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
-    var http = __importStar(__require("http"));
+    var http = __importStar((init_http(), __toCommonJS(http_exports)));
     var https = __importStar(__require("https"));
     var pm = __importStar(require_proxy());
     var tunnel = __importStar(require_tunnel2());
