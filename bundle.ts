@@ -37,19 +37,25 @@ const replaceNodeAssertPlugin = {
   name: "replace-node-assert",
   setup(build: esbuild.PluginBuild) {
     // Intercept both "node:assert" and "assert"
-    build.onResolve({ filter: /^(?:node:)?assert$/ }, (args: esbuild.OnResolveArgs) => ({
-      path: args.path,
-      namespace: "replace-node-assert",
-    }));
+    build.onResolve(
+      { filter: /^(?:node:)?assert$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-assert",
+      }),
+    );
     // Load a virtual module that does a static import
-    build.onLoad({ filter: /.*/, namespace: "replace-node-assert" }, (loadArgs: esbuild.OnLoadArgs) => ({
-      contents: `
+    build.onLoad(
+      { filter: /.*/, namespace: "replace-node-assert" },
+      (loadArgs: esbuild.OnLoadArgs) => ({
+        contents: `
         import assert from "${loadArgs.path}";
         export default assert;
         export * from "${loadArgs.path}";
       `,
-      loader: "js",
-    }));
+        loader: "js",
+      }),
+    );
   },
 };
 
