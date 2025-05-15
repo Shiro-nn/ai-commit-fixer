@@ -89,6 +89,36 @@ const replaceNodeNetPlugin = {
   },
 };
 
+/**
+ * Replace any dynamic require of "node:http" (or "http")
+ * with a static ESM import from "node:http".
+ */
+const replaceNodeHttpPlugin = {
+  name: "replace-node-http",
+  setup(build: esbuild.PluginBuild) {
+    // Intercept both "node:http" and "http"
+    build.onResolve(
+        { filter: /^(?:node:)?http$/ },
+        (args: esbuild.OnResolveArgs) => ({
+          path: args.path,
+          namespace: "replace-node-http",
+        }),
+    );
+    // Load a virtual module that does a static import
+    build.onLoad(
+        { filter: /.*/, namespace: "replace-node-http" },
+        (loadArgs: esbuild.OnLoadArgs) => ({
+          contents: `
+        import http from "${loadArgs.path}";
+        export default http;
+        export * from "${loadArgs.path}";
+      `,
+          loader: "js",
+        }),
+    );
+  },
+};
+
 await esbuild.initialize();
 
 await esbuild.build({
@@ -100,6 +130,7 @@ await esbuild.build({
     replaceNodeFetchPlugin,
     replaceNodeAssertPlugin,
     replaceNodeNetPlugin,
+    replaceNodeHttpPlugin,
     ...denoPlugins({
       loader: "native",
     }),
