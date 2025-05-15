@@ -10,11 +10,11 @@ const replaceNodeFetchPlugin = {
   setup(build: esbuild.PluginBuild) {
     // 1) Catch all import requests for "node-fetch"
     build.onResolve(
-      { filter: /^node-fetch$/ },
-      (args: esbuild.OnResolveArgs) => ({
-        path: args.path,
-        namespace: "replace-node-fetch",
-      }),
+        { filter: /^node-fetch$/ },
+        (args: esbuild.OnResolveArgs) => ({
+          path: args.path,
+          namespace: "replace-node-fetch",
+        }),
     );
 
     // 2) Provide a virtual module that re-exports Undici fetch
@@ -29,33 +29,18 @@ const replaceNodeFetchPlugin = {
   },
 };
 
+
 /**
- * Replace any dynamic require of "node:assert" (or "assert")
- * with a static ESM import from "node:assert".
+ * Marks all node:* built-in ESM imports as external
+ * so Node.js will resolve them at runtime.
  */
-const replaceNodeAssertPlugin = {
-  name: "replace-node-assert",
+const externalNodeBuiltinsPlugin = {
+  name: "external-node-builtins",
   setup(build: esbuild.PluginBuild) {
-    // Intercept both "node:assert" and "assert"
-    build.onResolve(
-      { filter: /^(?:node:)?assert$/ },
-      (args: esbuild.OnResolveArgs) => ({
-        path: args.path,
-        namespace: "replace-node-assert",
-      }),
-    );
-    // Load a virtual module that does a static import
-    build.onLoad(
-      { filter: /.*/, namespace: "replace-node-assert" },
-      (loadArgs: esbuild.OnLoadArgs) => ({
-        contents: `
-        import assert from "${loadArgs.path}";
-        export default assert;
-        export * from "${loadArgs.path}";
-      `,
-        loader: "js",
-      }),
-    );
+    build.onResolve({ filter: /^node:/ }, (args: esbuild.OnResolveArgs) => ({
+      path: args.path,
+      external: true,
+    }));
   },
 };
 
@@ -68,7 +53,7 @@ await esbuild.build({
   platform: "node",
   plugins: [
     replaceNodeFetchPlugin,
-    replaceNodeAssertPlugin,
+    externalNodeBuiltinsPlugin,
     ...denoPlugins({
       loader: "native",
     }),
