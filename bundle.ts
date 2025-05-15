@@ -11,8 +11,9 @@ for (const line of file.split("\n")) {
   }
   write += `${line}\n`;
 }
-if (start)
-write += "\n})().catch(err => { console.error(err); process.exit(1); });";
+if (start) {
+  write += "\n})().catch(err => { console.error(err); process.exit(1); });";
+}
 Deno.writeTextFileSync("dist/build.ts", write);
 
 try {
