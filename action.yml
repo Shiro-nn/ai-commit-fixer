@@ -1,0 +1,23 @@
+name: "AI Commit Fixed"
+description: "Perform commits and fix it using OpenAI API."
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub token to interact with the repository."
+    required: true
+  OPENAI_API_KEY:
+    description: "OpenAI API key for GPT."
+    required: true
+  OPENAI_API_MODEL:
+    description: "OpenAI API model."
+    required: false
+    default: "gpt-4"
+  OPENAI_API_ENDPOINT:
+    description: "OpenAI API endpoint."
+    required: false
+    default: ""
+runs:
+  using: "node20"
+  main: dist/out.js
+branding:
+  icon: "aperture"
+  color: "green"
