@@ -132,14 +132,14 @@ async function getAIResponse(prompt: string) {
     response = await resp.text();
     const json = JSON.parse(response);
     return stripThinkBlocks(
-        json.choices[0].message?.content?.trim() || "",
+      json.choices[0].message?.content?.trim() || "",
     );
   } catch (err) {
-    console.info('--- AI ERROR  ---');
-    console.info('Prompt: ', prompt);
-    console.info('---');
-    console.info('Response: ', response);
-    console.info('---');
+    console.info("--- AI ERROR  ---");
+    console.info("Prompt: ", prompt);
+    console.info("---");
+    console.info("Response: ", response);
+    console.info("---");
     console.error(err);
     return null;
   }

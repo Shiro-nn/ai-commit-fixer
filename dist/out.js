@@ -23950,6 +23950,7 @@ var import_github = __toESM(require_github());
 `;
   }
   async function getAIResponse(prompt) {
+    let response = "";
     try {
       let url = OPENAI_BASE_URL;
       if (!url.endsWith("/")) {
@@ -23975,11 +23976,17 @@ var import_github = __toESM(require_github());
           ]
         })
       });
-      const response = await resp.json();
+      response = await resp.text();
+      const json = JSON.parse(response);
       return stripThinkBlocks(
-        response.choices[0].message?.content?.trim() || ""
+        json.choices[0].message?.content?.trim() || ""
       );
     } catch (err) {
+      console.info("--- AI ERROR  ---");
+      console.info("Prompt: ", prompt);
+      console.info("---");
+      console.info("Response: ", response);
+      console.info("---");
       console.error(err);
       return null;
     }
