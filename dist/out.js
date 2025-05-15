@@ -23881,6 +23881,7 @@ var import_github = __toESM(require_github());
   const octokit = (0, import_github.getOctokit)(GITHUB_TOKEN);
   const owner = import_github.context.repo.owner;
   const repo = import_github.context.repo.repo;
+  const branch = import_github.context.ref.replace("refs/heads/", "");
   if (import_github.context.eventName != "push") {
     throw new Error("This action only works with push events");
   }
@@ -23910,8 +23911,8 @@ var import_github = __toESM(require_github());
       if (!reply) continue;
       await (0, import_exec.exec)("git", ["checkout", sha], { env });
       await (0, import_exec.exec)("git", ["commit", "--amend", "-m", reply], { env });
-      await (0, import_exec.exec)("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], { env });
-      await (0, import_exec.exec)("git", ["push", "--force"], { env });
+      await (0, import_exec.exec)("git", ["rebase", "--onto", "HEAD", `${sha}^`, branch], { env });
+      await (0, import_exec.exec)("git", ["push", "--force", "origin", branch], { env });
     } catch (err) {
       console.error(err);
     }
