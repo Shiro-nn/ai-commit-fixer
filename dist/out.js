@@ -23968,8 +23968,6 @@ var import_github = __toESM(require_github());
           model: OPENAI_API_MODEL,
           temperature: 0.2,
           top_p: 1,
-          frequency_penalty: 0,
-          presence_penalty: 0,
           messages: [
             { role: "system", content: getSystemPrompt() },
             { role: "user", content: prompt }
