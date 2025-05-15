@@ -23873,7 +23873,6 @@ var require_github = __commonJS({
 var import_core = __toESM(require_core());
 var import_exec = __toESM(require_exec());
 var import_github = __toESM(require_github());
-var process2 = __toESM(require("node:process"));
 (async () => {
   const GITHUB_TOKEN = (0, import_core.getInput)("GITHUB_TOKEN");
   const OPENAI_API_KEY = (0, import_core.getInput)("OPENAI_API_KEY");
@@ -23897,12 +23896,16 @@ var process2 = __toESM(require("node:process"));
   await (0, import_exec.exec)("git", ["status"]);
   await (0, import_exec.exec)("git", ["log", "--oneline"]);
   const diffs = await Promise.all(
-    commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map(
-      (cm) => cm.id
-    ).map((hash) => getCommitDiff(hash))
+    commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map(({ id, author }) => getCommitDiff(id, author))
   );
-  for (const { sha, diff } of diffs) {
+  for (const { sha, diff, author } of diffs) {
     try {
+      const env = {
+        GIT_EDITOR: ":",
+        GIT_SEQUENCE_EDITOR: ":",
+        GIT_COMMITTER_NAME: author.name,
+        GIT_COMMITTER_EMAIL: author.email ?? ""
+      };
       const reply = await getAIResponse(diff);
       if (!reply) continue;
       (0, import_exec.exec)("git", [
@@ -23916,24 +23919,19 @@ var process2 = __toESM(require("node:process"));
         "--exec",
         "'true'",
         "--quiet"
-      ], {
-        env: {
-          GIT_COMMITTER_NAME: process2.env.GITHUB_ACTOR,
-          GIT_COMMITTER_EMAIL: `${process2.env.GITHUB_ACTOR}@users.noreply.github.com`
-        }
-      });
+      ], { env });
       (0, import_exec.exec)("git", [
         "commit",
         "--amend",
         "-m",
         `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`
-      ]);
-      (0, import_exec.exec)("git", ["push", "--force-with-lease"]);
+      ], { env });
+      (0, import_exec.exec)("git", ["push", "--force-with-lease"], { env });
     } catch (err) {
       console.error(err);
     }
   }
-  async function getCommitDiff(commitSha) {
+  async function getCommitDiff(commitSha, author) {
     const diffResponse = await octokit.request(
       "GET /repos/{owner}/{repo}/commits/{ref}",
       {
@@ -23945,7 +23943,7 @@ var process2 = __toESM(require("node:process"));
         }
       }
     );
-    return { sha: commitSha, diff: diffResponse.data };
+    return { sha: commitSha, diff: diffResponse.data, author };
   }
   function stripThinkBlocks(input) {
     return input.replace(/<think>[\s\S]*?<\/think>/gs, "").trim();
@@ -23999,7 +23997,7 @@ var process2 = __toESM(require("node:process"));
   }
 })().catch((err) => {
   console.error(err);
-  process2.exit(1);
+  process.exit(1);
 });
 /*! Bundled license information:
 
