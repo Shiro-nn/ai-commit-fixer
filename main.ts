@@ -2,7 +2,6 @@ import { getInput } from "npm:@actions/core";
 import { exec } from "npm:@actions/exec";
 import { context, getOctokit } from "npm:@actions/github";
 import { PushEvent } from "npm:@octokit/webhooks-types";
-import * as process from "node:process";
 
 // Получаем входные переменные
 const GITHUB_TOKEN = getInput("GITHUB_TOKEN")!;
@@ -36,40 +35,22 @@ await exec("git", ["status"]);
 await exec("git", ["log", "--oneline"]);
 
 const diffs = await Promise.all(
-  commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map((cm) =>
-    cm.id
-  ).map((hash) => getCommitDiff(hash)),
+  commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map(({id, author}) => getCommitDiff(id, author)),
 );
 
-for (const { sha, diff } of diffs) {
+for (const { sha, diff, author } of diffs) {
   try {
+    const env = {
+      GIT_EDITOR: ':',
+      GIT_SEQUENCE_EDITOR: ':',
+      GIT_COMMITTER_NAME: author.name,
+      GIT_COMMITTER_EMAIL: author.email ?? '',
+    };
     const reply = await getAIResponse(diff);
     if (!reply) continue;
-    exec("git", [
-      "rebase",
-      "-i",
-      `${sha}^`,
-      "--autosquash",
-      "--rebase-merges",
-      "--autostash",
-      "--empty=drop",
-      "--exec",
-      "'true'",
-      "--quiet",
-    ], {
-      env: {
-        GIT_COMMITTER_NAME: process.env.GITHUB_ACTOR!,
-        GIT_COMMITTER_EMAIL:
-          `${process.env.GITHUB_ACTOR}@users.noreply.github.com`,
-      },
-    });
-    exec("git", [
-      "commit",
-      "--amend",
-      "-m",
-      `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`,
-    ]);
-    exec("git", ["push", "--force-with-lease"]);
+    exec("git", [ "rebase", "-i", `${sha}^`, "--autosquash", "--rebase-merges", "--autostash", "--empty=drop", "--exec", "'true'", "--quiet"], { env });
+    exec("git", ["commit", "--amend", "-m", `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`], { env });
+    exec("git", ["push", "--force-with-lease"], { env });
   } catch (err) {
     console.error(err);
   }
@@ -77,7 +58,8 @@ for (const { sha, diff } of diffs) {
 
 async function getCommitDiff(
   commitSha: string,
-): Promise<{ sha: string; diff: string }> {
+  author: { name: string; email: string | null },
+): Promise<{ sha: string; diff: string, author: { name: string; email: string | null } }> {
   const diffResponse = await octokit.request<string>(
     "GET /repos/{owner}/{repo}/commits/{ref}",
     {
@@ -89,7 +71,7 @@ async function getCommitDiff(
       },
     },
   );
-  return { sha: commitSha, diff: diffResponse.data };
+  return { sha: commitSha, diff: diffResponse.data, author };
 }
 
 function stripThinkBlocks(input: string): string {
