@@ -23959,13 +23959,16 @@ var process2 = __toESM(require("node:process"));
   }
   async function getAIResponse(prompt) {
     try {
-      const resp = await fetch(OPENAI_BASE_URL, {
+      const url = new URL(OPENAI_BASE_URL);
+      url.pathname = "/v1/chat/completions";
+      const resp = await fetch(url.href, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${OPENAI_API_KEY}`
         },
         body: JSON.stringify({
+          stream: false,
           model: OPENAI_API_MODEL,
           temperature: 0.2,
           top_p: 1,
