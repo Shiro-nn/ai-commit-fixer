@@ -53,6 +53,20 @@ var init_node_assert = __esm({
   }
 });
 
+// replace-node-net:node:net
+var node_net_exports = {};
+__export(node_net_exports, {
+  default: () => node_net_default
+});
+var node_net_default;
+var init_node_net = __esm({
+  "replace-node-net:node:net"() {
+    init_node_net();
+    init_node_net();
+    node_net_default = node_net_default;
+  }
+});
+
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/symbols.js
 var require_symbols = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/symbols.js"(exports, module) {
@@ -861,7 +875,7 @@ var require_util = __commonJS({
     var { kDestroyed, kBodyUsed, kListeners, kBody } = require_symbols();
     var { IncomingMessage } = __require("node:http");
     var stream = __require("node:stream");
-    var net = __require("node:net");
+    var net = (init_node_net(), __toCommonJS(node_net_exports));
     var { Blob: Blob4 } = __require("node:buffer");
     var nodeUtil = __require("node:util");
     var { stringify: stringify2 } = __require("node:querystring");
@@ -2319,7 +2333,7 @@ var require_dispatcher_base = __commonJS({
 var require_connect = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/connect.js"(exports, module) {
     "use strict";
-    var net = __require("node:net");
+    var net = (init_node_net(), __toCommonJS(node_net_exports));
     var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
     var util = require_util();
     var { InvalidArgumentError } = require_errors();
@@ -7557,7 +7571,7 @@ var require_client = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/dispatcher/client.js"(exports, module) {
     "use strict";
     var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
-    var net = __require("node:net");
+    var net = (init_node_net(), __toCommonJS(node_net_exports));
     var http = __require("node:http");
     var util = require_util();
     var { ClientStats } = require_stats();
@@ -9195,7 +9209,7 @@ var require_retry_agent = __commonJS({
 var require_h2c_client = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/dispatcher/h2c-client.js"(exports, module) {
     "use strict";
-    var { connect } = __require("node:net");
+    var { connect } = (init_node_net(), __toCommonJS(node_net_exports));
     var { kClose, kDestroy } = require_symbols();
     var { InvalidArgumentError } = require_errors();
     var util = require_util();
@@ -12023,7 +12037,7 @@ var require_dump = __commonJS({
 var require_dns = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/interceptor/dns.js"(exports, module) {
     "use strict";
-    var { isIP } = __require("node:net");
+    var { isIP } = (init_node_net(), __toCommonJS(node_net_exports));
     var { lookup } = __require("node:dns");
     var DecoratorHandler = require_decorator_handler();
     var { InvalidArgumentError, InformationalError } = require_errors();
@@ -24196,6 +24210,20 @@ var require_proxy = __commonJS({
   }
 });
 
+// replace-node-net:net
+var net_exports = {};
+__export(net_exports, {
+  default: () => net_default
+});
+var net_default;
+var init_net = __esm({
+  "replace-node-net:net"() {
+    init_net();
+    init_net();
+    net_default = net_default;
+  }
+});
+
 // replace-node-assert:assert
 var assert_exports = {};
 __export(assert_exports, {
@@ -24214,7 +24242,7 @@ var init_assert = __esm({
 var require_tunnel = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/tunnel@0.0.6/node_modules/tunnel/lib/tunnel.js"(exports) {
     "use strict";
-    var net = __require("net");
+    var net = (init_net(), __toCommonJS(net_exports));
     var tls = __require("tls");
     var http = __require("http");
     var https = __require("https");
@@ -24854,7 +24882,7 @@ var require_util7 = __commonJS({
     var { kDestroyed, kBodyUsed } = require_symbols2();
     var { IncomingMessage } = __require("http");
     var stream = __require("stream");
-    var net = __require("net");
+    var net = (init_net(), __toCommonJS(net_exports));
     var { InvalidArgumentError } = require_errors2();
     var { Blob: Blob4 } = __require("buffer");
     var nodeUtil = __require("util");
@@ -30099,7 +30127,7 @@ var require_dispatcher_base2 = __commonJS({
 var require_connect2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/core/connect.js"(exports, module) {
     "use strict";
-    var net = __require("net");
+    var net = (init_net(), __toCommonJS(net_exports));
     var assert = (init_assert(), __toCommonJS(assert_exports));
     var util = require_util7();
     var { InvalidArgumentError, ConnectTimeoutError } = require_errors2();
@@ -30783,7 +30811,7 @@ var require_client2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/client.js"(exports, module) {
     "use strict";
     var assert = (init_assert(), __toCommonJS(assert_exports));
-    var net = __require("net");
+    var net = (init_net(), __toCommonJS(net_exports));
     var http = __require("http");
     var { pipeline } = __require("stream");
     var util = require_util7();
