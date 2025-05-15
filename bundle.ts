@@ -99,6 +99,7 @@ await esbuild.build({
   plugins: [
     replaceNodeFetchPlugin,
     replaceNodeAssertPlugin,
+    replaceNodeNetPlugin,
     ...denoPlugins({
       loader: "native",
     }),
