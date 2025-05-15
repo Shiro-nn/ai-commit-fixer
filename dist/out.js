@@ -37,21 +37,6 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// replace-node-assert:node:assert
-var node_assert_exports = {};
-__export(node_assert_exports, {
-  default: () => node_assert_default
-});
-var node_assert_default;
-var init_node_assert = __esm({
-  "replace-node-assert:node:assert"() {
-    init_node_assert();
-    init_node_assert();
-    node_assert_default = node_assert_default;
-  }
-});
 
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/symbols.js
 var require_symbols = __commonJS({
@@ -857,7 +842,7 @@ var require_tree = __commonJS({
 var require_util = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/util.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { kDestroyed, kBodyUsed, kListeners, kBody } = require_symbols();
     var { IncomingMessage } = __require("node:http");
     var stream = __require("node:stream");
@@ -1661,7 +1646,7 @@ var require_request = __commonJS({
       InvalidArgumentError,
       NotSupportedError
     } = require_errors();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var {
       isValidHTTPToken,
       isValidHeaderValue,
@@ -2320,7 +2305,7 @@ var require_connect = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/core/connect.js"(exports, module) {
     "use strict";
     var net = __require("node:net");
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var util = require_util();
     var { InvalidArgumentError } = require_errors();
     var tls;
@@ -3348,7 +3333,7 @@ var require_global = __commonJS({
 var require_data_url = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/web/fetch/data-url.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var encoder = new TextEncoder();
     var HTTP_TOKEN_CODEPOINTS = /^[!#$%&'*+\-.^_|~A-Za-z0-9]+$/;
     var HTTP_WHITESPACE_REGEX = /[\u000A\u000D\u0009\u0020]/;
@@ -4172,7 +4157,7 @@ var require_util2 = __commonJS({
     var { collectASequenceOfCodePoints, collectAnHTTPQuotedString, removeChars, parseMIMEType } = require_data_url();
     var { performance: performance2 } = __require("node:perf_hooks");
     var { ReadableStreamFrom, isValidHTTPToken, normalizedMethodRecordsBase } = require_util();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { isUint8Array } = __require("node:util/types");
     var { webidl } = require_webidl();
     var supportedHashes = [];
@@ -5232,7 +5217,7 @@ var require_formdata_parser = __commonJS({
     var { HTTP_TOKEN_CODEPOINTS, isomorphicDecode } = require_data_url();
     var { makeEntry } = require_formdata();
     var { webidl } = require_webidl();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { File: NodeFile } = __require("node:buffer");
     var File3 = globalThis.File ?? NodeFile;
     var formDataNameBuffer = Buffer.from('form-data; name="');
@@ -5509,7 +5494,7 @@ var require_body = __commonJS({
     var { FormData: FormData3, setFormDataState } = require_formdata();
     var { webidl } = require_webidl();
     var { Blob: Blob4 } = __require("node:buffer");
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { isErrored, isDisturbed } = __require("node:stream");
     var { isArrayBuffer } = __require("node:util/types");
     var { serializeAMimeType } = require_data_url();
@@ -5809,7 +5794,7 @@ Content-Type: ${value.type || "application/octet-stream"}\r
 var require_client_h1 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/dispatcher/client-h1.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var util = require_util();
     var { channels } = require_diagnostics();
     var timers = require_timers();
@@ -6967,7 +6952,7 @@ ${len.toString(16)}\r
 var require_client_h2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/dispatcher/client-h2.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { pipeline } = __require("node:stream");
     var util = require_util();
     var {
@@ -7556,7 +7541,7 @@ var require_client_h2 = __commonJS({
 var require_client = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/dispatcher/client.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var net = __require("node:net");
     var http = __require("node:http");
     var util = require_util();
@@ -8894,7 +8879,7 @@ var require_env_http_proxy_agent = __commonJS({
 var require_retry_handler = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/handler/retry-handler.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { kRetryHandlerDefaultRetry } = require_symbols();
     var { RequestRetryError } = require_errors();
     var WrapHandler = require_wrap_handler();
@@ -9290,7 +9275,7 @@ var require_h2c_client = __commonJS({
 var require_readable = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/api/readable.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { Readable: Readable2 } = __require("node:stream");
     var { RequestAbortedError, NotSupportedError, InvalidArgumentError, AbortError } = require_errors();
     var util = require_util();
@@ -9692,7 +9677,7 @@ var require_readable = __commonJS({
 var require_api_request = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/api/api-request.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { AsyncResource } = __require("node:async_hooks");
     var { Readable: Readable2 } = require_readable();
     var { InvalidArgumentError, RequestAbortedError } = require_errors();
@@ -9913,7 +9898,7 @@ var require_abort_signal = __commonJS({
 var require_api_stream = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/api/api-stream.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { finished } = __require("node:stream");
     var { AsyncResource } = __require("node:async_hooks");
     var { InvalidArgumentError, InvalidReturnValueError } = require_errors();
@@ -10079,7 +10064,7 @@ var require_api_pipeline = __commonJS({
       Duplex,
       PassThrough
     } = __require("node:stream");
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { AsyncResource } = __require("node:async_hooks");
     var {
       InvalidArgumentError,
@@ -10277,7 +10262,7 @@ var require_api_upgrade = __commonJS({
     "use strict";
     var { InvalidArgumentError, SocketError } = require_errors();
     var { AsyncResource } = __require("node:async_hooks");
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var util = require_util();
     var { addSignal, removeSignal } = require_abort_signal();
     var UpgradeHandler = class extends AsyncResource {
@@ -10368,7 +10353,7 @@ var require_api_upgrade = __commonJS({
 var require_api_connect = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/api/api-connect.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { AsyncResource } = __require("node:async_hooks");
     var { InvalidArgumentError, SocketError } = require_errors();
     var util = require_util();
@@ -11599,7 +11584,7 @@ var require_global2 = __commonJS({
 var require_decorator_handler = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/handler/decorator-handler.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var WrapHandler = require_wrap_handler();
     module.exports = class DecoratorHandler {
       #handler;
@@ -11657,7 +11642,7 @@ var require_redirect_handler = __commonJS({
     "use strict";
     var util = require_util();
     var { kBodyUsed } = require_symbols();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { InvalidArgumentError } = require_errors();
     var EE = __require("node:events");
     var redirectableStatusCodes = [300, 301, 302, 303, 307, 308];
@@ -13232,7 +13217,7 @@ var require_memory_cache_store = __commonJS({
 var require_cache_revalidation_handler = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/handler/cache-revalidation-handler.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var CacheRevalidationHandler = class {
       #successful = false;
       /**
@@ -13319,7 +13304,7 @@ var require_cache_revalidation_handler = __commonJS({
 var require_cache2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/interceptor/cache.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { Readable: Readable2 } = __require("node:stream");
     var util = require_util();
     var CacheHandler = require_cache_handler();
@@ -13934,7 +13919,7 @@ var require_headers = __commonJS({
       isValidHeaderValue
     } = require_util2();
     var { webidl } = require_webidl();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var util = __require("node:util");
     function isHTTPWhiteSpaceCharCode(code) {
       return code === 10 || code === 13 || code === 9 || code === 32;
@@ -14408,7 +14393,7 @@ var require_response = __commonJS({
     var { webidl } = require_webidl();
     var { URLSerializer } = require_data_url();
     var { kConstruct } = require_symbols();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { types } = __require("node:util");
     var textEncoder = new TextEncoder("utf-8");
     var Response3 = class _Response {
@@ -14874,7 +14859,7 @@ var require_request2 = __commonJS({
     var { webidl } = require_webidl();
     var { URLSerializer } = require_data_url();
     var { kConstruct } = require_symbols();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { getMaxListeners, setMaxListeners, defaultMaxListeners } = __require("node:events");
     var kAbortController = Symbol("abortController");
     var requestFinalizer = new FinalizationRegistry2(({ signal, abort }) => {
@@ -15644,7 +15629,7 @@ var require_fetch = __commonJS({
       createInflate,
       extractMimeType
     } = require_util2();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { safelyExtractBody, extractBody } = require_body();
     var {
       redirectStatusSet,
@@ -16661,7 +16646,7 @@ var require_fetch = __commonJS({
 var require_util3 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/web/cache/util.js"(exports, module) {
     "use strict";
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { URLSerializer } = require_data_url();
     var { isValidHeaderName } = require_util2();
     function urlEquals(A2, B2, excludeFragment = false) {
@@ -16699,7 +16684,7 @@ var require_cache3 = __commonJS({
     var { Request: Request3, fromInnerRequest, getRequestState } = require_request2();
     var { fetching } = require_fetch();
     var { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = require_util2();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var Cache = class _Cache {
       /**
        * @see https://w3c.github.io/ServiceWorker/#dfn-relevant-request-response-list
@@ -17535,7 +17520,7 @@ var require_parse = __commonJS({
     var { maxNameValuePairSize, maxAttributeValueSize } = require_constants4();
     var { isCTLExcludingHtab } = require_util4();
     var { collectASequenceOfCodePointsFast } = require_data_url();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { unescape: unescape2 } = __require("node:querystring");
     function parseSetCookie(header) {
       if (isCTLExcludingHtab(header)) {
@@ -18422,7 +18407,7 @@ var require_connection = __commonJS({
     var { Headers: Headers3, getHeadersList } = require_headers();
     var { getDecodeSplit } = require_util2();
     var { WebsocketFrameSend } = require_frame();
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var crypto;
     try {
       crypto = __require("node:crypto");
@@ -18627,7 +18612,7 @@ var require_receiver = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@7.9.0/node_modules/undici/lib/web/websocket/receiver.js"(exports, module) {
     "use strict";
     var { Writable } = __require("node:stream");
-    var assert = (init_node_assert(), __toCommonJS(node_assert_exports));
+    var assert = __require("node:assert");
     var { parserStates, opcodes, states, emptyBuffer, sentCloseFrameState } = require_constants5();
     var { channels } = require_diagnostics();
     var {
@@ -24196,20 +24181,6 @@ var require_proxy = __commonJS({
   }
 });
 
-// replace-node-assert:assert
-var assert_exports = {};
-__export(assert_exports, {
-  default: () => assert_default
-});
-var assert_default;
-var init_assert = __esm({
-  "replace-node-assert:assert"() {
-    init_assert();
-    init_assert();
-    assert_default = assert_default;
-  }
-});
-
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/tunnel@0.0.6/node_modules/tunnel/lib/tunnel.js
 var require_tunnel = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/tunnel@0.0.6/node_modules/tunnel/lib/tunnel.js"(exports) {
@@ -24219,7 +24190,7 @@ var require_tunnel = __commonJS({
     var http = __require("http");
     var https = __require("https");
     var events = __require("events");
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var util = __require("util");
     exports.httpOverHttp = httpOverHttp;
     exports.httpsOverHttp = httpsOverHttp;
@@ -24850,7 +24821,7 @@ var require_constants7 = __commonJS({
 var require_util7 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/core/util.js"(exports, module) {
     "use strict";
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { kDestroyed, kBodyUsed } = require_symbols2();
     var { IncomingMessage } = __require("http");
     var stream = __require("stream");
@@ -27546,7 +27517,7 @@ var require_util8 = __commonJS({
     var { getGlobalOrigin } = require_global3();
     var { performance: performance2 } = __require("perf_hooks");
     var { isBlobLike: isBlobLike2, toUSVString, ReadableStreamFrom } = require_util7();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { isUint8Array } = __require("util/types");
     var supportedHashes = [];
     var crypto;
@@ -28540,7 +28511,7 @@ var require_webidl2 = __commonJS({
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/fetch/dataURL.js
 var require_dataURL = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/fetch/dataURL.js"(exports, module) {
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { atob: atob2 } = __require("buffer");
     var { isomorphicDecode } = require_util8();
     var encoder = new TextEncoder();
@@ -29184,7 +29155,7 @@ var require_body2 = __commonJS({
     var { DOMException: DOMException3, structuredClone } = require_constants8();
     var { Blob: Blob4, File: NativeFile } = __require("buffer");
     var { kBodyUsed } = require_symbols2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { isErrored } = require_util7();
     var { isUint8Array, isArrayBuffer } = __require("util/types");
     var { File: UndiciFile } = require_file();
@@ -29550,7 +29521,7 @@ var require_request3 = __commonJS({
       InvalidArgumentError,
       NotSupportedError
     } = require_errors2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { kHTTP2BuildRequest, kHTTP2CopyHeaders, kHTTP1BuildRequest } = require_symbols2();
     var util = require_util7();
     var tokenRegExp = /^[\^_`a-zA-Z\-0-9!#$%&'*+.|~]+$/;
@@ -30100,7 +30071,7 @@ var require_connect2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/core/connect.js"(exports, module) {
     "use strict";
     var net = __require("net");
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var util = require_util7();
     var { InvalidArgumentError, ConnectTimeoutError } = require_errors2();
     var tls;
@@ -30598,7 +30569,7 @@ var require_RedirectHandler = __commonJS({
     "use strict";
     var util = require_util7();
     var { kBodyUsed } = require_symbols2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { InvalidArgumentError } = require_errors2();
     var EE = __require("events");
     var redirectableStatusCodes = [300, 301, 302, 303, 307, 308];
@@ -30782,7 +30753,7 @@ var require_llhttp_simd_wasm2 = __commonJS({
 var require_client2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/client.js"(exports, module) {
     "use strict";
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var net = __require("net");
     var http = __require("http");
     var { pipeline } = __require("stream");
@@ -33118,7 +33089,7 @@ var require_agent3 = __commonJS({
 var require_readable2 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/api/readable.js"(exports, module) {
     "use strict";
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { Readable: Readable2 } = __require("stream");
     var { RequestAbortedError, NotSupportedError, InvalidArgumentError } = require_errors2();
     var util = require_util7();
@@ -33369,7 +33340,7 @@ var require_readable2 = __commonJS({
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/api/util.js
 var require_util9 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/api/util.js"(exports, module) {
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var {
       ResponseStatusCodeError
     } = require_errors2();
@@ -33803,7 +33774,7 @@ var require_api_pipeline2 = __commonJS({
     var util = require_util7();
     var { AsyncResource } = __require("async_hooks");
     var { addSignal, removeSignal } = require_abort_signal2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var kResume = Symbol("resume");
     var PipelineRequest = class extends Readable2 {
       constructor() {
@@ -33992,7 +33963,7 @@ var require_api_upgrade2 = __commonJS({
     var { AsyncResource } = __require("async_hooks");
     var util = require_util7();
     var { addSignal, removeSignal } = require_abort_signal2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var UpgradeHandler = class extends AsyncResource {
       constructor(opts, callback) {
         if (!opts || typeof opts !== "object") {
@@ -35132,7 +35103,7 @@ var require_proxy_agent2 = __commonJS({
 // ../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/handler/RetryHandler.js
 var require_RetryHandler = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/handler/RetryHandler.js"(exports, module) {
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { kRetryHandlerDefaultRetry } = require_symbols2();
     var { RequestRetryError } = require_errors2();
     var { isDisturbed, parseHeaders, parseRangeHeader } = require_util7();
@@ -35474,7 +35445,7 @@ var require_headers2 = __commonJS({
     } = require_util8();
     var util = __require("util");
     var { webidl } = require_webidl2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var kHeadersMap = Symbol("headers map");
     var kHeadersSortedMap = Symbol("headers map sorted");
     function isHTTPWhiteSpaceCharCode(code) {
@@ -35878,7 +35849,7 @@ var require_response2 = __commonJS({
     var { getGlobalOrigin } = require_global3();
     var { URLSerializer } = require_dataURL();
     var { kHeadersList, kConstruct } = require_symbols2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { types } = __require("util");
     var ReadableStream5 = globalThis.ReadableStream || __require("stream/web").ReadableStream;
     var textEncoder = new TextEncoder("utf-8");
@@ -36260,7 +36231,7 @@ var require_request4 = __commonJS({
     var { getGlobalOrigin } = require_global3();
     var { URLSerializer } = require_dataURL();
     var { kHeadersList, kConstruct } = require_symbols2();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { getMaxListeners, setMaxListeners, getEventListeners, defaultMaxListeners } = __require("events");
     var TransformStream3 = globalThis.TransformStream;
     var kAbortController = Symbol("abortController");
@@ -36913,7 +36884,7 @@ var require_fetch2 = __commonJS({
       urlHasHttpsScheme
     } = require_util8();
     var { kState, kHeaders, kGuard, kRealm } = require_symbols3();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { safelyExtractBody } = require_body2();
     var {
       redirectStatusSet,
@@ -38732,7 +38703,7 @@ var require_symbols5 = __commonJS({
 var require_util11 = __commonJS({
   "../../../.cache/deno/deno_esbuild/registry.npmjs.org/undici@5.29.0/node_modules/undici/lib/cache/util.js"(exports, module) {
     "use strict";
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { URLSerializer } = require_dataURL();
     var { isValidHeaderName } = require_util8();
     function urlEquals(A2, B2, excludeFragment = false) {
@@ -38775,7 +38746,7 @@ var require_cache4 = __commonJS({
     var { kState, kHeaders, kGuard, kRealm } = require_symbols3();
     var { fetching } = require_fetch2();
     var { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = require_util8();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     var { getGlobalDispatcher } = require_global4();
     var Cache = class _Cache {
       /**
@@ -39564,7 +39535,7 @@ var require_parse2 = __commonJS({
     var { maxNameValuePairSize, maxAttributeValueSize } = require_constants10();
     var { isCTLExcludingHtab } = require_util12();
     var { collectASequenceOfCodePointsFast } = require_dataURL();
-    var assert = (init_assert(), __toCommonJS(assert_exports));
+    var assert = __require("assert");
     function parseSetCookie(header) {
       if (isCTLExcludingHtab(header)) {
         return null;
@@ -42597,7 +42568,7 @@ var require_io = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.findInPath = exports.which = exports.mkdirP = exports.rmRF = exports.mv = exports.cp = void 0;
-    var assert_1 = (init_assert(), __toCommonJS(assert_exports));
+    var assert_1 = __require("assert");
     var path = __importStar(__require("path"));
     var ioUtil = __importStar(require_io_util());
     function cp(source, dest, options = {}) {
@@ -44064,12 +44035,12 @@ var require_dist_node2 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var dist_src_exports = {};
     __export2(dist_src_exports, {
       endpoint: () => endpoint
     });
-    module.exports = __toCommonJS2(dist_src_exports);
+    module.exports = __toCommonJS(dist_src_exports);
     var import_universal_user_agent = require_dist_node();
     var VERSION2 = "9.0.6";
     var userAgent = `octokit-endpoint.js/${VERSION2} ${(0, import_universal_user_agent.getUserAgent)()}`;
@@ -44512,12 +44483,12 @@ var require_dist_node4 = __commonJS({
       isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target,
       mod
     ));
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var dist_src_exports = {};
     __export2(dist_src_exports, {
       RequestError: () => RequestError
     });
-    module.exports = __toCommonJS2(dist_src_exports);
+    module.exports = __toCommonJS(dist_src_exports);
     var import_deprecation = require_dist_node3();
     var import_once = __toESM2(require_once());
     var logOnceCode = (0, import_once.default)((deprecation) => console.warn(deprecation));
@@ -44594,12 +44565,12 @@ var require_dist_node5 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var dist_src_exports = {};
     __export2(dist_src_exports, {
       request: () => request
     });
-    module.exports = __toCommonJS2(dist_src_exports);
+    module.exports = __toCommonJS(dist_src_exports);
     var import_endpoint = require_dist_node2();
     var import_universal_user_agent = require_dist_node();
     var VERSION2 = "8.4.1";
@@ -44804,14 +44775,14 @@ var require_dist_node6 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var index_exports = {};
     __export2(index_exports, {
       GraphqlResponseError: () => GraphqlResponseError,
       graphql: () => graphql2,
       withCustomRequest: () => withCustomRequest
     });
-    module.exports = __toCommonJS2(index_exports);
+    module.exports = __toCommonJS(index_exports);
     var import_request3 = require_dist_node5();
     var import_universal_user_agent = require_dist_node();
     var VERSION2 = "7.1.1";
@@ -44941,12 +44912,12 @@ var require_dist_node7 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var dist_src_exports = {};
     __export2(dist_src_exports, {
       createTokenAuth: () => createTokenAuth
     });
-    module.exports = __toCommonJS2(dist_src_exports);
+    module.exports = __toCommonJS(dist_src_exports);
     var REGEX_IS_INSTALLATION_LEGACY = /^v1\./;
     var REGEX_IS_INSTALLATION = /^ghs_/;
     var REGEX_IS_USER_TO_SERVER = /^ghu_/;
@@ -45012,12 +44983,12 @@ var require_dist_node8 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var index_exports = {};
     __export2(index_exports, {
       Octokit: () => Octokit
     });
-    module.exports = __toCommonJS2(index_exports);
+    module.exports = __toCommonJS(index_exports);
     var import_universal_user_agent = require_dist_node();
     var import_before_after_hook = require_before_after_hook();
     var import_request = require_dist_node5();
@@ -45171,13 +45142,13 @@ var require_dist_node9 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var dist_src_exports = {};
     __export2(dist_src_exports, {
       legacyRestEndpointMethods: () => legacyRestEndpointMethods,
       restEndpointMethods: () => restEndpointMethods
     });
-    module.exports = __toCommonJS2(dist_src_exports);
+    module.exports = __toCommonJS(dist_src_exports);
     var VERSION2 = "10.4.1";
     var Endpoints = {
       actions: {
@@ -47327,7 +47298,7 @@ var require_dist_node10 = __commonJS({
       }
       return to;
     };
-    var __toCommonJS2 = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
+    var __toCommonJS = (mod) => __copyProps2(__defProp2({}, "__esModule", { value: true }), mod);
     var dist_src_exports = {};
     __export2(dist_src_exports, {
       composePaginateRest: () => composePaginateRest,
@@ -47335,7 +47306,7 @@ var require_dist_node10 = __commonJS({
       paginateRest: () => paginateRest,
       paginatingEndpoints: () => paginatingEndpoints
     });
-    module.exports = __toCommonJS2(dist_src_exports);
+    module.exports = __toCommonJS(dist_src_exports);
     var VERSION2 = "9.2.2";
     function normalizePaginatedListResponse(response) {
       if (!response.data) {

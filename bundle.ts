@@ -10,11 +10,11 @@ const replaceNodeFetchPlugin = {
   setup(build: esbuild.PluginBuild) {
     // 1) Catch all import requests for "node-fetch"
     build.onResolve(
-        { filter: /^node-fetch$/ },
-        (args: esbuild.OnResolveArgs) => ({
-          path: args.path,
-          namespace: "replace-node-fetch",
-        }),
+      { filter: /^node-fetch$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-fetch",
+      }),
     );
 
     // 2) Provide a virtual module that re-exports Undici fetch
@@ -28,7 +28,6 @@ const replaceNodeFetchPlugin = {
     }));
   },
 };
-
 
 /**
  * Marks all node:* built-in ESM imports as external
