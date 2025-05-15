@@ -1,4 +1,3 @@
-import OpenAI from "npm:openai@4.97.0";
 import core from "npm:@actions/core";
 import { exec } from "npm:@actions/exec";
 import github from "npm:@actions/github";
@@ -13,7 +12,6 @@ const OPENAI_API_MODEL = core.getInput("OPENAI_API_MODEL")!;
 
 // Инициализация клиентов
 const octokit = github.getOctokit(GITHUB_TOKEN);
-const openai = new OpenAI({ apiKey: OPENAI_API_KEY, baseURL: OPENAI_BASE_URL });
 
 const context = github.context;
 const owner = context.repo.owner;
@@ -110,19 +108,27 @@ function getSystemPrompt(): string {
 
 async function getAIResponse(prompt: string) {
   try {
-    const response = await openai.chat.completions.create({
-      model: OPENAI_API_MODEL,
-      temperature: 0.2,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-      messages: [
-        { role: "system", content: getSystemPrompt() },
-        { role: "user", content: prompt },
-      ],
+    const resp = await fetch(OPENAI_BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: OPENAI_API_MODEL,
+        temperature: 0.2,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        messages: [
+          { role: "system", content: getSystemPrompt() },
+          { role: "user", content: prompt },
+        ],
+      })
     });
+    const response = await resp.json();
     return stripThinkBlocks(
-      response.choices[0].message?.content?.trim() || "{}",
+      response.choices[0].message?.content?.trim() || "",
     );
   } catch (err) {
     console.error(err);
