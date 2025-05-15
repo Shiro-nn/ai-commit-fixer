@@ -10,11 +10,11 @@ const replaceNodeFetchPlugin = {
   setup(build: esbuild.PluginBuild) {
     // 1) Catch all import requests for "node-fetch"
     build.onResolve(
-        { filter: /^node-fetch$/ },
-        (args: esbuild.OnResolveArgs) => ({
-          path: args.path,
-          namespace: "replace-node-fetch",
-        }),
+      { filter: /^node-fetch$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path,
+        namespace: "replace-node-fetch",
+      }),
     );
 
     // 2) Provide a virtual module that re-exports Undici fetch
@@ -28,7 +28,6 @@ const replaceNodeFetchPlugin = {
     }));
   },
 };
-
 
 /**
  * Marks all node:* built-in ESM imports as external
@@ -52,24 +51,30 @@ const replaceNodeBuiltinsPlugin = {
   name: "replace-node-builtins",
   setup(build: esbuild.PluginBuild) {
     // 1) Catch all imports/requires of node:XYZ
-    build.onResolve({ filter: /^node:[\w@\/\-]+$/ }, (args: esbuild.OnResolveArgs) => ({
-      path: args.path,            // e.g. "node:assert", "node:stream", etc.
-      namespace: "node-builtins",
-    }));
+    build.onResolve(
+      { filter: /^node:[\w@\/\-]+$/ },
+      (args: esbuild.OnResolveArgs) => ({
+        path: args.path, // e.g. "node:assert", "node:stream", etc.
+        namespace: "node-builtins",
+      }),
+    );
 
     // 2) For each one, emit a tiny ESM stub that does:
     //    import * as name from "node:XYZ"; export default name; export * from "node:XYZ";
-    build.onLoad({ filter: /.*/, namespace: "node-builtins" }, (loadArgs: esbuild.OnLoadArgs) => {
-      const spec = loadArgs.path; // the matched "node:XYZ"
-      return {
-        contents: `
+    build.onLoad(
+      { filter: /.*/, namespace: "node-builtins" },
+      (loadArgs: esbuild.OnLoadArgs) => {
+        const spec = loadArgs.path; // the matched "node:XYZ"
+        return {
+          contents: `
           import * as mod from "${spec}";
           export default mod;
           export * from "${spec}";
         `,
-        loader: "js",
-      };
-    });
+          loader: "js",
+        };
+      },
+    );
   },
 };
 
