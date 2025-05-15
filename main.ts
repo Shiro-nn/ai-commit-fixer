@@ -14,6 +14,7 @@ const octokit = getOctokit(GITHUB_TOKEN);
 
 const owner = context.repo.owner;
 const repo = context.repo.repo;
+const branch = context.ref.replace("refs/heads/", "");
 
 if (context.eventName != "push") {
   throw new Error("This action only works with push events");
@@ -52,8 +53,8 @@ for (const { sha, diff, author } of diffs) {
     if (!reply) continue;
     await exec("git", ["checkout", sha], { env });
     await exec("git", ["commit", "--amend", "-m", reply], { env });
-    await exec("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], { env });
-    await exec("git", ["push", "--force"], { env });
+    await exec("git", ["rebase", "--onto", "HEAD", `${sha}^`, branch], { env });
+    await exec("git", ["push", "--force", "origin", branch], {env});
   } catch (err) {
     console.error(err);
   }
