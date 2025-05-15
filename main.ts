@@ -1,6 +1,6 @@
-import {getInput} from "npm:@actions/core";
+import { getInput } from "npm:@actions/core";
 import { exec } from "npm:@actions/exec";
-import { getOctokit, context } from "npm:@actions/github";
+import { context, getOctokit } from "npm:@actions/github";
 import { PushEvent } from "npm:@octokit/webhooks-types";
 import * as process from "node:process";
 
