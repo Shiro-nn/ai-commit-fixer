@@ -10,12 +10,23 @@ const externalCoreModulesPlugin = {
   setup(build: esbuild.PluginBuild) {
     // List of Node’s built‑in module names you want to externalize
     const builtins = [
-      "assert", "buffer", "child_process", "crypto", "dns", "events",
-      "fs", "http", "https", "os", "path", "stream", "util", /* …etc… */
+      "assert",
+      "buffer",
+      "child_process",
+      "crypto",
+      "dns",
+      "events",
+      "fs",
+      "http",
+      "https",
+      "os",
+      "path",
+      "stream",
+      "util", /* …etc… */
     ];
     // Build a regex that matches either `node:foo` or `foo`
     const filter = new RegExp(
-        `^(?:node:(?:${builtins.join("|")})|(?:${builtins.join("|")}))$`
+      `^(?:node:(?:${builtins.join("|")})|(?:${builtins.join("|")}))$`,
     );
 
     build.onResolve({ filter }, (args: { path: string }) => ({
