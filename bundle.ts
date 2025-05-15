@@ -21,6 +21,7 @@ await esbuild.build({
   banner: {
     js: 'import fs from "fs";', // чтобы fs.readFileSync работал
   },
+  external: ["encoding"],
   outfile: "dist/out.js",
 });
 
