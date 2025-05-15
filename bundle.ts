@@ -7,6 +7,7 @@ await esbuild.build({
   entryPoints: ["main.ts"],
   bundle: true,
   format: "esm",
+  platform: "node",
   plugins: [
     ...denoPlugins({
       loader: "native",
