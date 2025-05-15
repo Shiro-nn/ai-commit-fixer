@@ -26,6 +26,30 @@ const replaceNodeFetchPlugin = {
   },
 };
 
+/**
+ * Replace any dynamic require of "node:assert" (or "assert")
+ * with a static ESM import from "node:assert".
+ */
+const replaceNodeAssertPlugin = {
+  name: "replace-node-assert",
+  setup(build: esbuild.PluginBuild) {
+    // Intercept both "node:assert" and "assert"
+    build.onResolve({ filter: /^(?:node:)?assert$/ }, (args: esbuild.OnResolveArgs) => ({
+      path: args.path,
+      namespace: "replace-node-assert",
+    }));
+    // Load a virtual module that does a static import
+    build.onLoad({ filter: /.*/, namespace: "replace-node-assert" }, (loadArgs: esbuild.OnLoadArgs) => ({
+      contents: `
+        import assert from "${loadArgs.path}";
+        export default assert;
+        export * from "${loadArgs.path}";
+      `,
+      loader: "js",
+    }));
+  },
+};
+
 await esbuild.initialize();
 
 await esbuild.build({
@@ -35,6 +59,7 @@ await esbuild.build({
   platform: "node",
   plugins: [
     replaceNodeFetchPlugin,
+    replaceNodeAssertPlugin,
     ...denoPlugins({
       loader: "native",
     }),
