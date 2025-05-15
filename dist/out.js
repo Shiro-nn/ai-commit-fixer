@@ -1,4 +1,4 @@
-import fs from "fs";
+import * as fsmodule from "fs";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
