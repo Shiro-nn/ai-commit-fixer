@@ -103,8 +103,9 @@ function getSystemPrompt(): string {
 async function getAIResponse(prompt: string) {
   try {
     let url = OPENAI_BASE_URL;
-    if (!url.endsWith("/"))
-      url += '/';
+    if (!url.endsWith("/")) {
+      url += "/";
+    }
     url += "chat/completions";
 
     const resp = await fetch(url, {
