@@ -23908,24 +23908,9 @@ var import_github = __toESM(require_github());
       };
       const reply = await getAIResponse(diff);
       if (!reply) continue;
-      await (0, import_exec.exec)("git", [
-        "rebase",
-        "-i",
-        `${sha}^`,
-        "--autosquash",
-        "--rebase-merges",
-        "--autostash",
-        "--empty=drop",
-        "--exec",
-        "'true'",
-        "--quiet"
-      ], { env });
-      await (0, import_exec.exec)("git", [
-        "commit",
-        "--amend",
-        "-m",
-        `"${reply.replace(/"/g, '\\"').replace(/\n/g, "\\n")}"'`
-      ], { env });
+      await (0, import_exec.exec)("git", ["checkout", sha], { env });
+      await (0, import_exec.exec)("git", ["commit", "--amend", "-m", reply], { env });
+      await (0, import_exec.exec)("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], { env });
       await (0, import_exec.exec)("git", ["push", "--force-with-lease"], { env });
     } catch (err) {
       console.error(err);

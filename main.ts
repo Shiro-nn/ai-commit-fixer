@@ -35,42 +35,46 @@ await exec("git", ["status"]);
 await exec("git", ["log", "--oneline"]);
 
 const diffs = await Promise.all(
-    commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map(({id, author}) => getCommitDiff(id, author)),
+  commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map((
+    { id, author },
+  ) => getCommitDiff(id, author)),
 );
 
 for (const { sha, diff, author } of diffs) {
   try {
     const env = {
-      GIT_EDITOR: ':',
-      GIT_SEQUENCE_EDITOR: ':',
+      GIT_EDITOR: ":",
+      GIT_SEQUENCE_EDITOR: ":",
       GIT_COMMITTER_NAME: author.name,
-      GIT_COMMITTER_EMAIL: author.email ?? '',
+      GIT_COMMITTER_EMAIL: author.email ?? "",
     };
     const reply = await getAIResponse(diff);
     if (!reply) continue;
-    await exec("git", ["checkout", sha], {env});
-    await exec("git", ["commit", "--amend", "-m", reply], {env});
-    await exec("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], {env});
-    await exec("git", ["push", "--force-with-lease"], {env});
+    await exec("git", ["checkout", sha], { env });
+    await exec("git", ["commit", "--amend", "-m", reply], { env });
+    await exec("git", ["rebase", "--onto", "HEAD", `${sha}^`, "main"], { env });
+    await exec("git", ["push", "--force-with-lease"], { env });
   } catch (err) {
     console.error(err);
   }
 }
 
 async function getCommitDiff(
-    commitSha: string,
-    author: { name: string; email: string | null },
-): Promise<{ sha: string; diff: string, author: { name: string; email: string | null } }> {
+  commitSha: string,
+  author: { name: string; email: string | null },
+): Promise<
+  { sha: string; diff: string; author: { name: string; email: string | null } }
+> {
   const diffResponse = await octokit.request<string>(
-      "GET /repos/{owner}/{repo}/commits/{ref}",
-      {
-        owner,
-        repo,
-        ref: commitSha,
-        headers: {
-          Accept: "application/vnd.github.v3.diff",
-        },
+    "GET /repos/{owner}/{repo}/commits/{ref}",
+    {
+      owner,
+      repo,
+      ref: commitSha,
+      headers: {
+        Accept: "application/vnd.github.v3.diff",
       },
+    },
   );
   return { sha: commitSha, diff: diffResponse.data, author };
 }
@@ -121,7 +125,7 @@ async function getAIResponse(prompt: string) {
     });
     const response = await resp.json();
     return stripThinkBlocks(
-        response.choices[0].message?.content?.trim() || "",
+      response.choices[0].message?.content?.trim() || "",
     );
   } catch (err) {
     console.error(err);
