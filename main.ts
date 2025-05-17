@@ -37,8 +37,8 @@ await exec("git", ["log", "--oneline"]);
 
 const diffs = await Promise.all(
   commits.filter((cm) => {
-    console.info(cm.message);
-    return !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message);
+    console.info("[message] ", cm.message);
+    return !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message.split('\n')[0]);
   }).map((
     { id, author },
   ) => getCommitDiff(id, author)),
