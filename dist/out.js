@@ -23897,7 +23897,10 @@ var import_github = __toESM(require_github());
   await (0, import_exec.exec)("git", ["status"]);
   await (0, import_exec.exec)("git", ["log", "--oneline"]);
   const diffs = await Promise.all(
-    commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map(({ id, author }) => getCommitDiff(id, author))
+    commits.filter((cm) => {
+      console.info(cm.message);
+      return !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message);
+    }).map(({ id, author }) => getCommitDiff(id, author))
   );
   for (const { sha, diff, author } of diffs) {
     try {
@@ -23929,7 +23932,6 @@ var import_github = __toESM(require_github());
         }
       }
     );
-    console.info(diffResponse);
     return { sha: commitSha, diff: diffResponse.data, author };
   }
   function stripThinkBlocks(input) {
