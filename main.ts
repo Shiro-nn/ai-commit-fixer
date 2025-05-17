@@ -89,6 +89,7 @@ function stripThinkBlocks(input: string): string {
 function getSystemPrompt(): string {
   return `
 Используй формат Conventional Commits для заголовка: type(scope): короткое описание.
+Отвечай ТОЛЬКО в заданном примере, твой ответ СРАЗУ используется для коммитов без дополнительных проверок.
 Примеры: fix(api): исправлена опечатка, feat(auth): добавлена 2FA.
 
 После заголовка ОБЯЗАТЕЛЬНО добавь ПУСТУЮ СТРОКУ.
