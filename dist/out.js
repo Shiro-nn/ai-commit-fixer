@@ -23929,6 +23929,7 @@ var import_github = __toESM(require_github());
         }
       }
     );
+    console.info(diffResponse);
     return { sha: commitSha, diff: diffResponse.data, author };
   }
   function stripThinkBlocks(input) {
