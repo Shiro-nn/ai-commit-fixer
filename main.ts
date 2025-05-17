@@ -77,6 +77,7 @@ async function getCommitDiff(
       },
     },
   );
+  console.info(diffResponse);
   return { sha: commitSha, diff: diffResponse.data, author };
 }
 
