@@ -36,7 +36,7 @@ await exec("git", ["status"]);
 await exec("git", ["log", "--oneline"]);
 
 const diffs = await Promise.all(
-  commits.filter((cm) => !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message)).map((
+  commits.filter((cm) => {console.info(cm.message); return !/^\w+(\(\w+\))?:\s+.+$/.test(cm.message);}).map((
     { id, author },
   ) => getCommitDiff(id, author)),
 );
@@ -77,7 +77,6 @@ async function getCommitDiff(
       },
     },
   );
-  console.info(diffResponse);
   return { sha: commitSha, diff: diffResponse.data, author };
 }
 
